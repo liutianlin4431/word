@@ -2,7 +2,7 @@
 
 ## 1、 Srping5 核心包
 
-<img src="\image-20201030124241567.png" alt="image-20201030124241567" style="zoom: 200%;" />
+<img src="image-20201030124241567.png" alt="image-20201030124241567" style="zoom: 200%;" />
 
 ## 		2、什么是IOC
 
@@ -15,7 +15,8 @@
 ## 		3、 IOC底层原理
 
 ```tex
-More ActionsXml解析、工厂模式、反射
+Xml解析、工厂模式、反射
+
 IOC的思想基于IOC容器实现，IOC容器底层就是对象工厂
 ```
 
