@@ -76,3 +76,15 @@ DI：依赖注入，指在创建对象的过程中，将对象依赖的属性通
 ③ 当id与name都未被指定是，以类全名当做name使用
 ```
 
+## 8、xml自动装配
+
+```tex
+根据指定装配规则（属性名称或属性类型），Spring自动将匹配的属性值进行注入
+```
+
+```xml
+<!-- 使用类型进行装配时(名称使用byName)，comp类型只能配置一次bean-->
+<bean id="user" class="com.ltl.User" autowire="byType"></bean>
+<bean id="comp" class="com.ltl.Comp"></bean>
+```
+
