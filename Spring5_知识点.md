@@ -76,7 +76,29 @@ DI：依赖注入，指在创建对象的过程中，将对象依赖的属性通
 ③ 当id与name都未被指定是，以类全名当做name使用
 ```
 
-## 8、xml自动装配
+## 8、两种bean管理
+
+```tex
+① 普通bean，在配置文件中定义的bean就是返回类型
+
+② 工厂bean，在配置文件中定义的类型可与返回类型不一致（bean继承FactoryBean实现方法即可）
+```
+
+## 9、bean的生命周期
+
+**后置处理器，继承BeanPostProcessor，并实现其中的postProcessBeforeInitialization与postProcessAfterInitialization方法**
+
+```tex
+① 执行无参构造创建bean实例
+② 调用set方法设置属性值
+③ 在初始化之前执行的方法（postProcessBeforeInitialization：需要后置处理器）
+④ 执行初始化方法（需要手动配置）
+⑤ 在初始化之后执行的方法（postProcessAfterInitialization：需要后置处理器）
+⑥ 创建bean的实例对象
+⑦ 执行销毁方法（需要手动配置）
+```
+
+## 10、xml自动装配
 
 ```tex
 根据指定装配规则（属性名称或属性类型），Spring自动将匹配的属性值进行注入
@@ -86,5 +108,29 @@ DI：依赖注入，指在创建对象的过程中，将对象依赖的属性通
 <!-- 使用类型进行装配时(名称使用byName)，comp类型只能配置一次bean-->
 <bean id="user" class="com.ltl.User" autowire="byType"></bean>
 <bean id="comp" class="com.ltl.Comp"></bean>
+```
+
+## 11、属性注入（注解）
+
+```tex
+① @Autowired 根据属性类型自动装配
+
+② @Qualifier 根据属性名称进行自动装配
+
+③ @Resource 可根据类型活名称进行自动装填
+
+④ @Value 普通类型的自动状态
+```
+
+## 12、什么是AOP
+
+```
+面向切面:利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各个部分之间的耦合度降低，提高代码的可重用性，同时提高开发效率
+```
+
+## 13、AOP底层原理
+
+```
+
 ```
 
