@@ -86,8 +86,6 @@ DI：依赖注入，指在创建对象的过程中，将对象依赖的属性通
 
 ## 9、bean的生命周期
 
-**后置处理器，继承BeanPostProcessor，并实现其中的postProcessBeforeInitialization与postProcessAfterInitialization方法**
-
 ```tex
 ① 执行无参构造创建bean实例
 ② 调用set方法设置属性值
@@ -97,6 +95,8 @@ DI：依赖注入，指在创建对象的过程中，将对象依赖的属性通
 ⑥ 创建bean的实例对象
 ⑦ 执行销毁方法（需要手动配置）
 ```
+
+**后置处理器，继承BeanPostProcessor，并实现其中的postProcessBeforeInitialization与postProcessAfterInitialization方法**
 
 ## 10、xml自动装配
 
@@ -130,7 +130,102 @@ DI：依赖注入，指在创建对象的过程中，将对象依赖的属性通
 
 ## 13、AOP底层原理
 
+```tex
+使用动态代理实现AOP切面
+① 有接口的情况使用JDK动态代理
+	创建接口实现类代理对象
+② 没有接口的情况使用CGLIB动态代理
+	创建类的子类代理对象
 ```
 
+## 14、JDK动态代理
+
+```tex
+使用 JDK 动态代理，使用 Proxy 类里面的方法创建代理对象
+	调用newProxyInstance(ClassLoader loader, Class<?>[] interfaction, InvocationHandler h) 方法
+	方法有三个参数：
+		一、类加载器
+		二、增强方法所在的类，这个类实现的接口，支持多个接口
+		三、实现这个接口 InvocationHandler，创建代理对象，写增强的部分
+```
+
+```java
+/**
+ * 创建接口，定义方法
+ * 
+ * @author user
+ *
+ */
+public interface OperationDao {
+	public Integer add(Integer a, Integer b);
+}
+//=======================================
+/**
+ * 创建接口实现类，实现方法
+ * 
+ * @author user
+ *
+ */
+public class OperationDaoImpl implements OperationDao {
+	@Override
+	public Integer add(Integer a, Integer b) {
+        System.out.println("原方法被执行了----------");
+		return a + b;
+	}
+}
+//=======================================
+/**
+ * 创建代理对象
+ * 
+ * @author user
+ *
+ */
+public class OperationDaoProxy implements InvocationHandler {
+	private Object obj;
+
+	/**
+	 * 创建有参构造，接口需要被代理的对象
+	 * 
+	 * @param obj
+	 */
+	public OperationDaoProxy(Object obj) {
+		this.obj = obj;
+	}
+
+	/**
+	 * 增强方法
+	 * 
+	 * @param proxy
+	 * @param method 方法对象
+	 * @param args   方法参数
+	 */
+	@Override
+	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+		System.out.println("原方法执行前----------");
+		// 被增强的原方法
+		Object res = method.invoke(obj, args);
+		System.out.println("原方法执行后----------");
+		return res;
+	}
+}
+//=======================================
+/**
+ * JDK动态路由测试
+ * 
+ * @author user
+ *
+ */
+public class OperationTest {
+	public static void main(String[] args) {
+		// 创建接口实现代理类对象
+		Class<?>[] interfaces = { OperationDao.class };
+		// 创建需要被动态代理的对象
+		OperationDaoImpl odi = new OperationDaoImpl();
+		// 使用 Proxy 类创建接口代理对象
+		OperationDao od = (OperationDao) Proxy.newProxyInstance(OperationTest.class.getClassLoader(), interfaces,
+				new OperationDaoProxy(odi));
+		System.out.println(od.add(1, 1));
+	}
+}
 ```
 
