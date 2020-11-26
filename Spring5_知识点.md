@@ -159,7 +159,9 @@ DI：依赖注入，指在创建对象的过程中，将对象依赖的属性通
 public interface OperationDao {
 	public Integer add(Integer a, Integer b);
 }
-//=======================================
+```
+
+```java
 /**
  * 创建接口实现类，实现方法
  * 
@@ -173,7 +175,9 @@ public class OperationDaoImpl implements OperationDao {
 		return a + b;
 	}
 }
-//=======================================
+```
+
+```java
 /**
  * 创建代理对象
  * 
@@ -208,7 +212,9 @@ public class OperationDaoProxy implements InvocationHandler {
 		return res;
 	}
 }
-//=======================================
+```
+
+```java
 /**
  * JDK动态路由测试
  * 
@@ -229,3 +235,9 @@ public class OperationTest {
 }
 ```
 
+## 15、AOP术语
+
+1. 连接点：类里面哪些方法可以被增强，则这些方法被称为连接点
+2. 切入点：实际被真正增强的方法，则称之为切入点
+3. 通知（增强）：实际增强的逻辑部分称之为通知（增强）；
+4. 切面：把通知应用到切入点的过程
