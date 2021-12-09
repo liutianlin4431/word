@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         国开自动刷课
-// @namespace    稳定版
-// @version      2021.12.08
-// @description  国家开放大学自动刷课
+// @name         Click course
+// @namespace    stable
+// @version      2021.12.09
+// @description  Click course
 // @author       456
 // @match        *://*.ouchn.cn/*
 // @grant        none
@@ -24,8 +24,9 @@
 			var tt = $('#tt').html();
 			for (var i = 0; i < listinfo.length; i++) {
 				var info = $(listinfo[i]);
-				console.log(info.html());
-				if (info.html().indexOf(tt) != -1) {
+				var infoHtml = info.html();
+				console.log(infoHtml);
+				if (infoHtml == tt || (infoHtml.indexOf('→') == 0 && infoHtml.indexOf(tt) > -1)) {
 					var nextOne = info.next();
 					location.href = nextOne.attr("href")
 					break;
